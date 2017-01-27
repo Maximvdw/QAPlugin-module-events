@@ -5,6 +5,15 @@
 
 * /qaplugin module add Events
 
+## Configuration
+*/plugins/QAPlugin/modules/Events/config.yml*
+```yaml
+events:
+  player:
+    join: true
+    quit: true
+```
+
 ## Usage
 
 ### PLAYER_JOIN
