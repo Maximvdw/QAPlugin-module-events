@@ -1,6 +1,5 @@
 package be.maximvdw.qaplugin.modules.listeners;
 
-import be.maximvdw.mvdwupdater.utils.bukkit.BukkitUtils;
 import be.maximvdw.qaplugin.QAPlugin;
 import be.maximvdw.qaplugin.api.QAPluginAPI;
 import be.maximvdw.qaplugin.api.ai.Context;
@@ -20,43 +19,39 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class JoinListener implements Listener {
     private QAPlugin plugin = null;
 
-    public JoinListener(QAPlugin plugin){
+    public JoinListener(QAPlugin plugin) {
         setPlugin(plugin);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        if (player.hasPlayedBefore()){
+        if (player.hasPlayedBefore()) {
             // Not first join
             Bukkit.getScheduler().runTaskAsynchronously(getPlugin(), new Runnable() {
                 @Override
                 public void run() {
                     Context context = new Context("player");
                     context.setLifespan(1);
-                    context.addParameter("username",player.getName());
-                    if (BukkitUtils.hasUUIDSupport()) {
-                        context.addParameter("uuid", player.getUniqueId().toString());
-                    }
-                    EventsModule.getInstance().addContext(context,player);
-                    AnswerLine answerLine = QAPluginAPI.sendAIEvent("PLAYER_JOIN",player);
-                    QAPluginAPI.sendMessaagAsBot(answerLine.getAnswer(),player,true);
+                    context.addParameter("username", player.getName());
+                    context.addParameter("uuid", player.getUniqueId().toString());
+                    EventsModule.getInstance().addContext(context, player);
+                    AnswerLine answerLine = QAPluginAPI.sendAIEvent("PLAYER_JOIN", player);
+                    QAPluginAPI.sendMessaagAsBot(answerLine.getAnswer(), player, true);
                 }
             });
-        }else{
+        } else {
             // First join
             Bukkit.getScheduler().runTaskAsynchronously(getPlugin(), new Runnable() {
                 @Override
                 public void run() {
                     Context context = new Context("player");
                     context.setLifespan(1);
-                    context.addParameter("username",player.getName());
-                    if (BukkitUtils.hasUUIDSupport()) {
-                        context.addParameter("uuid", player.getUniqueId().toString());
-                    }
-                    EventsModule.getInstance().addContext(context,player);
-                    AnswerLine answerLine = QAPluginAPI.sendAIEvent("PLAYER_FIRST_JOIN",player);
-                    QAPluginAPI.sendMessaagAsBot(answerLine.getAnswer(),player,true);
+                    context.addParameter("username", player.getName());
+                    context.addParameter("uuid", player.getUniqueId().toString());
+                    EventsModule.getInstance().addContext(context, player);
+                    AnswerLine answerLine = QAPluginAPI.sendAIEvent("PLAYER_FIRST_JOIN", player);
+                    QAPluginAPI.sendMessaagAsBot(answerLine.getAnswer(), player, true);
                 }
             });
         }

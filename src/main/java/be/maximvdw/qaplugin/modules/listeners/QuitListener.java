@@ -1,6 +1,5 @@
 package be.maximvdw.qaplugin.modules.listeners;
 
-import be.maximvdw.mvdwupdater.utils.bukkit.BukkitUtils;
 import be.maximvdw.qaplugin.QAPlugin;
 import be.maximvdw.qaplugin.api.QAPluginAPI;
 import be.maximvdw.qaplugin.api.ai.Context;
@@ -11,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
@@ -33,13 +31,11 @@ public class QuitListener implements Listener {
             public void run() {
                 Context context = new Context("player");
                 context.setLifespan(1);
-                context.addParameter("username",player.getName());
-                if (BukkitUtils.hasUUIDSupport()) {
-                    context.addParameter("uuid", player.getUniqueId().toString());
-                }
-                EventsModule.getInstance().addContext(context,player);
-                AnswerLine answerLine = QAPluginAPI.sendAIEvent("PLAYER_QUIT",player);
-                QAPluginAPI.sendMessaagAsBot(answerLine.getAnswer(),player,true);
+                context.addParameter("username", player.getName());
+                context.addParameter("uuid", player.getUniqueId().toString());
+                EventsModule.getInstance().addContext(context, player);
+                AnswerLine answerLine = QAPluginAPI.sendAIEvent("PLAYER_QUIT", player);
+                QAPluginAPI.sendMessaagAsBot(answerLine.getAnswer(), player, true);
             }
         });
     }
