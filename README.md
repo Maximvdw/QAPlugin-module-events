@@ -10,8 +10,8 @@
 ### PLAYER_JOIN
 Triggered when a player joins (not for the first time)
 
-[](http://i.mvdw-software.com/2017-01-27_22-50-03.png)
-[](http://i.mvdw-software.com/2017-01-27_22-53-06.png)
+![](http://i.mvdw-software.com/2017-01-27_22-50-03.png)
+![](http://i.mvdw-software.com/2017-01-27_22-53-06.png)
 
 #### Placeholders
 
